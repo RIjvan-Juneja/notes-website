@@ -18,16 +18,14 @@ const addNewNote = (text = "") => {
   note.classList.add("note");
 
   const htmlData = `
-  <form method="post" name="submit-to-google-sheet" action="index.html">
     <div class="operation">
         <button class="edit"> <i class="fas fa-edit"></i> </button>
         <button class="delete"> <i class="fas fa-trash-alt"></i> </button>
-        <button type="submit" name="submit" id="bbttn">Sent to sheet</button> 
     </div>
 
     <div class="main ${text ? "" : "hidden"} "> </div>
-    <textarea class="${text ? "hidden" : ""}" name="dataset"></textarea>
-     </form> `;
+    <textarea class="${text ? "hidden" : ""}"></textarea>
+      `;
     
   note.insertAdjacentHTML("afterbegin", htmlData);
   // console.log(note);
@@ -73,14 +71,4 @@ if (notes) {
 
 addButton.addEventListener("click", () => addNewNote());
 
-// sent to sheet
 
-const scriptURL = 'https://script.google.com/macros/s/AKfycbx45JGNnZItRuFs8Ll7wrmbSqVl1jN5rZlyx-hsFY4bci_zOz2Igf_8OhVB6_9-rLPg/exec'
-const form = document.forms['submit-to-google-sheet']
-
-form.addEventListener('submit', e => {
-  e.preventDefault()
-  fetch(scriptURL, { method: 'POST', body: new FormData(form)})
-    .then(response => console.log('Success!', response))
-    .catch(error => console.error('Error!', error.message))
-});
